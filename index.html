@@ -1753,7 +1753,7 @@
         <input type="hidden" name="access_key" value="21f470c4-37b9-4ce9-a40e-823296633f3c" />
         <input type="hidden" name="subject" value="Nová RSVP — Oslava Petra & Petry" />
         <input type="hidden" name="from_name" value="Web Oslava P&P" />
-        <input type="hidden" name="botcheck" value="" style="display:none" />
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
         <div class="form-grid">
 
           <div class="fg">
@@ -2030,18 +2030,23 @@
         body: new FormData(form),
         headers: { 'Accept': 'application/json' }
       })
-        .then((response) => {
-          if (!response.ok) throw new Error('send-failed');
-          form.style.opacity = '0.35';
-          form.style.pointerEvents = 'none';
-          const msg = document.getElementById('confirm-msg');
-          msg.style.display = 'block';
-          msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            form.style.opacity = '0.35';
+            form.style.pointerEvents = 'none';
+            const msg = document.getElementById('confirm-msg');
+            msg.style.display = 'block';
+            msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          } else {
+            throw new Error(data.message || 'send-failed');
+          }
         })
-        .catch(() => {
+        .catch((err) => {
           btn.disabled = false;
           btn.textContent = originalLabel;
           alert('Něco se nepovedlo. Zkuste to prosím znovu, nebo nám zavolejte přímo.');
+          console.error('RSVP error:', err);
         });
     }
   </script>
