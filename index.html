@@ -1749,8 +1749,11 @@
         Prosíme o potvrzení do <strong style="color:var(--g600);">15. 8. 2026</strong>, abychom mohli perfektně připravit zázemí pro každého hosta.
       </p>
 
-      <!-- Až budeš mít účet na formspree.io, nahraď XXXXXXXX svým form ID (viz. dashboard) -->
-      <form id="rsvp-form" action="https://formspree.io/f/XXXXXXXX" method="POST" onsubmit="submitRSVP(event)" class="reveal reveal-d2">
+      <form id="rsvp-form" action="https://api.web3forms.com/submit" method="POST" onsubmit="submitRSVP(event)" class="reveal reveal-d2">
+        <input type="hidden" name="access_key" value="21f470c4-37b9-4ce9-a40e-823296633f3c" />
+        <input type="hidden" name="subject" value="Nová RSVP — Oslava Petra & Petry" />
+        <input type="hidden" name="from_name" value="Web Oslava P&P" />
+        <input type="hidden" name="botcheck" value="" style="display:none" />
         <div class="form-grid">
 
           <div class="fg">
